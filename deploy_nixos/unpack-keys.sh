@@ -14,7 +14,7 @@ fi
 
 # Fallback if jq is not installed
 if ! type -p jq &>/dev/null; then
-  jqOut=$(nix-build '<nixpkgs>' -A jq)
+  jqOut=$(nix build 'nixpkgs#jq')
   jq() {
     "$jqOut/bin/jq" "$@"
   }

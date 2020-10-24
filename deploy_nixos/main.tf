@@ -127,20 +127,17 @@ resource "null_resource" "deploy_nixos" {
   }
 
   # copy the secret keys to the host
-  # copy the secret keys to the host
   provisioner "file" {
     content     = jsonencode(var.keys)
     destination = "packed-keys.json"
   }
 
   # FIXME: move this to nixos-deploy.sh
-  # FIXME: move this to nixos-deploy.sh
   provisioner "file" {
     source      = "${path.module}/unpack-keys.sh"
     destination = "unpack-keys.sh"
   }
 
-  # FIXME: move this to nixos-deploy.sh
   # FIXME: move this to nixos-deploy.sh
   provisioner "file" {
     source      = "${path.module}/maybe-sudo.sh"
@@ -154,7 +151,6 @@ resource "null_resource" "deploy_nixos" {
     ]
   }
 
-  # do the actual deployment
   # do the actual deployment
   provisioner "local-exec" {
     interpreter = concat([
