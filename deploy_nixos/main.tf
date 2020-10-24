@@ -24,11 +24,6 @@ variable "ssh_agent" {
   default     = true
 }
 
-variable "NIX_PATH" {
-  description = "Allow to pass custom NIX_PATH. Ignored if `-`."
-  default     = "-"
-}
-
 variable "nixos_config" {
   description = "Path to a NixOS configuration"
   default     = ""
@@ -102,7 +97,6 @@ locals {
 data "external" "nixos-instantiate" {
   program = concat([
     "${path.module}/nixos-instantiate.sh",
-    var.NIX_PATH,
     var.config != "" ? var.config : var.nixos_config,
     var.config_pwd != "" ? var.config_pwd : ".",
     # end of positional arguments

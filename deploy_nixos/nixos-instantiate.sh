@@ -2,10 +2,9 @@
 set -euo pipefail
 
 # Args
-nix_path=$1
-config=$2
-config_pwd=$3
-shift 3
+config=$1
+config_pwd=$2
+shift 2
 
 # Building the command
 command=(nix-instantiate --show-trace --expr '
@@ -31,20 +30,15 @@ fi
 # add all extra CLI args as extra build arguments
 command+=("$@")
 
-# Setting the NIX_PATH
-if [[ -n "$nix_path" && "$nix_path" != "-" ]]; then
-  export NIX_PATH=$nix_path
-fi
-
 # Changing directory
 cd "$(readlink -f "$config_pwd")"
 
 # Instantiate
-echo "running (instantiating): ${NIX_PATH:+NIX_PATH=$NIX_PATH} ${command[*]@Q}" -A out_path >&2
+echo "running (instantiating): ${command[*]@Q}" -A out_path >&2
 "${command[@]}" -A out_path >/dev/null
 
 # Evaluate some more details,
 # relying on preceding "Instantiate" command to perform the instantiation,
 # because `--eval` is required but doesn't instantiate for some reason.
-echo "running (evaluating): ${NIX_PATH:+NIX_PATH=$NIX_PATH} ${command[*]@Q}" --eval --strict --json >&2
+echo "running (evaluating): ${command[*]@Q}" --eval --strict --json >&2
 "${command[@]}" --eval --strict --json

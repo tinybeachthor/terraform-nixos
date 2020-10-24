@@ -99,7 +99,6 @@ see also:
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| NIX\_PATH | Allow to pass custom NIX\_PATH. Ignored if `-`. | `string` | `"-"` | no |
 | build\_on\_target | Avoid building on the deployer. Must be true or false. Has no effect when deploying from an incompatible system. Unlike remote builders, this does not require the deploying user to be trusted by its host. | `string` | `false` | no |
 | config | NixOS configuration to be evaluated. This argument is required unless 'nixos\_config' is given | `string` | `""` | no |
 | config\_pwd | Directory to evaluate the configuration in. This argument is required if 'config' is given | `string` | `""` | no |
